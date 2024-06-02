@@ -8,7 +8,6 @@ from config.db import get_db
 from sqlalchemy.orm import Session
 
 
-
 from services.users import get_user_by_username
 from services.auth import validate_password
 
