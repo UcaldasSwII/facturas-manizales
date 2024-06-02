@@ -4,6 +4,8 @@ sqlalchemy
 
 pyjwt
 
+pytest 
+
 jinja2
 
 python-multipart
