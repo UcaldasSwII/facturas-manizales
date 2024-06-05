@@ -37,7 +37,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag backend:$(date +%s)
+      run: docker build . --file Dockerfile --tag facturas:$(date +%s)
 
   build:
     runs-on: ubuntu-latest
@@ -47,4 +47,4 @@ jobs:
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
           service-id: rv-cpfs196ct0pc73d2cbl0
-          api-key: rnd_ujUqvpR3RghjcJ0uHdi59LxxaKQN          
+          api-key: rnd_ujUqvpR3RghjcJ0uHdi59LxxaKQN
