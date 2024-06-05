@@ -26,12 +26,14 @@ client = TestClient(app)
 
 def test_register_user():
     response = client.post(
-        "/user/",
-        json={ 'id': 1, 
-              'username': 'test', 
-              'email': 'test_email', 
-              'name': 'test_name', 
-              'password': 'test_password'
-              })
-    assert response.status_code == 200
-    assert response.json()['username'] == 'test'
+        "/users/",
+        json={
+            "username": "testuser",
+            "email": "test@gmail.com",
+            "name" : "testname",
+            "password": "testpassword",
+            "role": "testRole",
+            "cel" : "1234567890"
+        })
+    assert response.status_code == 201
+    assert response.json()['message'] == 'User created'

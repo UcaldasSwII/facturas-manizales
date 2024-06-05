@@ -3,26 +3,16 @@ name: ci-cd test
 on:
   push:
     branches:
-      - main
+      - dev
   pull_request:
     branches:
-      - main
+      - dev
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to production
-        uses: johnbeynon/render-deploy-action@v0.0.8
-        with:
-          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
-          api-key: ${{ secrets.MY_RENDER_API_KEY }}
-          wait-for-success: true  
-
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,3 +30,21 @@ jobs:
       - name: Run tests
         run: |
           pytest
+  docker-build:
+
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag backend:$(date +%s)
+
+  build:
+    runs-on: ubuntu-latest
+    needs: docker-build
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: rv-cpfs196ct0pc73d2cbl0
+          api-key: rnd_ujUqvpR3RghjcJ0uHdi59LxxaKQN          
