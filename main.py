@@ -12,6 +12,9 @@ from config.db import Base, engine
 
 from routers.auth import auth_router
 from routers.users import users_router
+from modulos.servicios.servicio_controller import router as servicio_rotuer
+from modulos.pagos.pago_controller import router as pago_router
+from modulos.facturas.factura_controller import router as factura_router
 
 # Creación de la aplicación FastAPI
 app = FastAPI(title="rest_auth backend", version="0.0.1")
@@ -30,6 +33,9 @@ Base.metadata.create_all(bind=engine)
 
 app.include_router(auth_router)
 app.include_router(users_router)
+app.include_router(servicio_rotuer)
+app.include_router(pago_router)
+app.include_router(factura_router)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")

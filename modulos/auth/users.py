@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import Session
-from database import Base
+from sqlalchemy.orm import Session, relationship
+from config.db import Base
 from passlib.hash import bcrypt
 
 class User(Base):
@@ -9,6 +9,7 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
+    servicios = relationship("Servicio", back_populates="usuario")
 
 def create_user(db: Session, user: User):
     hashed_password = bcrypt.hash(user.password)

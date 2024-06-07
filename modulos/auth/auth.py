@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from passlib.hash import bcrypt
 from sqlalchemy.orm import Session
 from .jwt_manage import signJWT
-from database import SessionLocal
+from config.db import SessionLocal
 from .users import User, create_user
 
 auth_router = APIRouter()

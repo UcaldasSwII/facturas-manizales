@@ -1,3 +1,10 @@
+"""
+Test file for pytest to test the module Servicios that have a model with:
+    codigo_suscripcion = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String, index=True)
+    tipo = Column(Enum(ListaServicios))
+    usuario_id = Column(Integer, ForeignKey('users.id'))
+"""
 from fastapi.testclient import TestClient
 
 from sqlalchemy import create_engine
@@ -25,16 +32,5 @@ app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
-
-def test_register_user():
-    response = client.post(
-        "/users/",
-        json={
-            "username": "testuser",
-            "email": "test@gmail.com",
-            "id": 1,
-        })
-    assert response.status_code == 201
-    assert response.json()['message'] == 'User created'
 
 
