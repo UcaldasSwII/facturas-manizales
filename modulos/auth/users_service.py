@@ -1,7 +1,7 @@
 
 from sqlalchemy.orm import Session
 
-from modulos.auth.auth_schemas import User, UserCreate
+from modulos.auth.auth_schemas import User
 from modulos.auth.auth_model import User as UserModel
 
 def get_user_inDB(db:Session):
