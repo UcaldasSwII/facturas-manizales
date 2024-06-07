@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from schemas.auth import User
 from models.auth import User as UserModel
+from schemas.auth import UserCreate
 
 def get_user_inDB(db:Session):
     users = db.query(UserModel).all()

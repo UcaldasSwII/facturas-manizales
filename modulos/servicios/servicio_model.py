@@ -14,4 +14,4 @@ class Servicio(Base):
     tipo = Column(Enum(ListaServicios))
     usuario_id = Column(Integer, ForeignKey('users.id'))
     facturas = relationship("Factura", back_populates="servicio")
-    user = relationship("User", back_populates="servicios")
+    usuario = relationship("User", back_populates="servicios")

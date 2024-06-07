@@ -8,7 +8,8 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
-    password = Column(String)
+    hashed_password = Column(String)
+    servicios = relationship("Servicio", back_populates="usuario")
 
 def create_user(db: Session, user: User):
     hashed_password = bcrypt.hash(user.password)
