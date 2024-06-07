@@ -3,7 +3,7 @@ from passlib.hash import bcrypt
 from sqlalchemy.orm import Session
 from .jwt_manage import signJWT
 from config.db import SessionLocal
-from .users import User, create_user
+from .users_model import User, create_user
 
 auth_router = APIRouter()
 
