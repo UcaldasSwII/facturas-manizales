@@ -1,15 +1,15 @@
 from pydantic import BaseModel
 
 class PagoBase(BaseModel):
-    factura_id: int
+    tipo_pago: str
     monto: float
-    metodo: str
+    factura_id: int
 
 class PagoCreate(PagoBase):
     pass
 
 class Pago(PagoBase):
-    id: int
+    id_pago: int
 
     class Config:
         orm_mode = True

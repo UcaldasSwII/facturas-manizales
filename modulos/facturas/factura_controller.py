@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .factura_service import FacturaService
 from .factura_repository import FacturaRepository
 from .factura_schemas import FacturaCreate, Factura
-from modulos.common.database import get_db
+from config.db import get_db
 
 router = APIRouter()
 

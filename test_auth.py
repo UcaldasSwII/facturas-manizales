@@ -32,8 +32,6 @@ def test_register_user():
             "email": "test@gmail.com",
             "name" : "testname",
             "password": "testpassword",
-            "role": "testRole",
-            "cel" : "1234567890"
         })
     assert response.status_code == 201
     assert response.json()['message'] == 'User created'

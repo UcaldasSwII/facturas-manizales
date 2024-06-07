@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey, String
 from sqlalchemy.orm import relationship
-from modulos.common.database import Base
+from config.db import Base
 
 class Pago(Base):
     __tablename__ = 'pagos'
-    id = Column(Integer, primary_key=True, index=True)
-    factura_id = Column(Integer, ForeignKey('facturas.id'))
+    id_pago = Column(Integer, primary_key=True, index=True)
+    tipo_pago = Column(String)
     monto = Column(Float)
-    metodo = Column(String)
-    factura = relationship("Factura")
+    factura_id = Column(Integer, ForeignKey('facturas.id_factura'))
+    factura = relationship("Factura", back_populates="pagos")

@@ -1,15 +1,18 @@
 from pydantic import BaseModel
+from datetime import date
 
 class FacturaBase(BaseModel):
-    cliente_id: int
-    total: float
-    status: str
+    consumo: float
+    costo: float
+    estado: str
+    fecha_pago: date
+    servicio_id: int
 
 class FacturaCreate(FacturaBase):
     pass
 
 class Factura(FacturaBase):
-    id: int
+    id_factura: int
 
     class Config:
         orm_mode = True

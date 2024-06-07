@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .servicio_service import ServicioService
 from .servicio_repository import ServicioRepository
 from .servicio_schemas import ServicioCreate, Servicio
-from modulos.common.database import get_db
+from config.db import get_db
 
 router = APIRouter()
 

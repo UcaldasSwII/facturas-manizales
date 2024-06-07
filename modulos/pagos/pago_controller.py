@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .pago_service import PagoService
 from .pago_repository import PagoRepository
 from .pago_schemas import PagoCreate, Pago
-from modulos.common.database import get_db
+from config.db import get_db
 
 router = APIRouter()
 
