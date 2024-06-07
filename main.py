@@ -1,24 +1,52 @@
-from fastapi import FastAPI 
-#from dotenv import load_dotenv
-from modulos.clientes.cliente_controller import router as cliente_router
-from modulos.servicios.servicio_controller import router as servicio_router
-from modulos.facturas.factura_controller import router as factura_router
-from modulos.pagos.pago_controller import router as pago_router
-from modulos.common.database import init_db
+# Librerías requeridas
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import JSONResponse
 
-#load_dotenv()
+from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
-app.include_router(cliente_router, prefix="/api")
-app.include_router(servicio_router, prefix="/api")
-app.include_router(factura_router, prefix="/api")
-app.include_router(pago_router, prefix="/api")
 
-@app.on_event("startup")
-def on_startup():
-    init_db()
+from config.db import Base, engine
 
-if __name__=="__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+from routers.auth import auth_router
+from routers.users import users_router
+
+# Creación de la aplicación FastAPI
+app = FastAPI(title="rest_auth backend", version="0.0.1")
+
+# Configuración de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Lista de orígenes permitidos (utiliza dominios específicos en producción)
+    allow_credentials=True,
+    allow_methods=["*"],  # Métodos HTTP permitidos
+    allow_headers=["*"],  # Cabeceras HTTP permitidas
+)
+
+# Migración de la base de datos
+Base.metadata.create_all(bind=engine)
+
+app.include_router(auth_router)
+app.include_router(users_router)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
+
+
+
+# Rutas de la API
+
+@app.get("/")
+async def login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+@app.get("/signup")
+async def get_signup(request: Request):
+    return templates.TemplateResponse("signup.html", {"request": request})
+
+
+def hello_world():
+    return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
