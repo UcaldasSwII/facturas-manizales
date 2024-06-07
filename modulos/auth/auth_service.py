@@ -8,8 +8,10 @@ from utils.jwt_manage import encode_jwt
 from sqlalchemy.orm import Session
 
 
-def get_user_by_username(data: dict, db: Session = Depends(get_db)):
-    user = db.query(UserModel).filter(UserModel.username == data["username"]).first()
+from modulos.auth.auth_model import User as UserModel
+
+def get_user_by_username(username: str, db: Session):
+    user = db.query(UserModel).filter(UserModel.username == username).first()
     return user
     
 def get_token(data: dict):
