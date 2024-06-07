@@ -1,7 +1,7 @@
 
 from fastapi import Depends
-from schemas.auth import User, UserLogin
-from models.auth import User as UserModel
+from modulos.users.auth_schemas import User, UserLogin
+from modulos.users.users_model import User as UserModel
 from config.db import get_db
 from utils.jwt_manage import encode_jwt
 

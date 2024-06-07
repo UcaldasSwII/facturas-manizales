@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 
 from utils.jwt_manage import decode_jwt
 
-from services.auth import get_user_by_username_and_role
+from modulos.users.auth_service import get_user_by_username_and_role
 
 # Clase para manejar el token JWT
 

@@ -3,7 +3,8 @@ from passlib.hash import bcrypt
 from sqlalchemy.orm import Session
 from .jwt_manage import signJWT
 from config.db import SessionLocal
-from .users import User, create_user
+from modulos.users.users_model import User
+from modulos.users.users_service import create_new_user
 
 auth_router = APIRouter()
 
@@ -16,7 +17,7 @@ def get_db():
 
 @auth_router.post("/user/signup")
 async def create_user_endpoint(user: User, db: Session = Depends(get_db)):
-    created_user = create_user(db, user)
+    created_user = create_new_user(db, user)
     return signJWT(created_user.username)
 
 @auth_router.post("/user/login")

@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
-from schemas.auth import User
-from models.auth import User as UserModel
-from services.users import get_user_inDB, get_user_by_username, create_new_user
+from modulos.users.auth_schemas import User
+from modulos.users.users_model import User as UserModel
+from modulos.users.users_service import get_user_inDB, get_user_by_username, create_new_user
 
 from config.jwt_depends import JWTBearer
 
