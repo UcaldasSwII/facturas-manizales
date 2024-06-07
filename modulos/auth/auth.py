@@ -22,6 +22,6 @@ async def create_user_endpoint(user: User, db: Session = Depends(get_db)):
 @auth_router.post("/user/login")
 async def user_login(user: User, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.username == user.username).first()
-    if db_user and bcrypt.verify(user.password, db_user.hashed_password):
+    if db_user and bcrypt.verify(user.password, db_user.password):
         return signJWT(db_user.username)
     return {"error": "Invalid login credentials!"}

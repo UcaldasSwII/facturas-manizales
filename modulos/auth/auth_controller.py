@@ -2,14 +2,14 @@ from fastapi import APIRouter, Depends
 
 from fastapi.responses import JSONResponse
 
-from schemas.auth import UserLogin
+from modulos.auth.auth_schemas import User, UserLogin
 
 from config.db import get_db
 from sqlalchemy.orm import Session
 
 
-from services.users import get_user_by_username
-from services.auth import validate_password
+from modulos.auth.auth_service import get_user_by_username
+from modulos.auth.auth_service import validate_password
 
 auth_router = APIRouter(prefix="/auth",tags=["auth"])
 

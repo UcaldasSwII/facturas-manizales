@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 
 from utils.jwt_manage import decode_jwt
 
-from services.auth import get_user_by_username_and_role
+from modulos.auth.auth_service import get_user_by_username
 
 # Clase para manejar el token JWT
 
@@ -16,7 +16,7 @@ class JWTBearer(HTTPBearer):
         
         if data:
             #TODO: Cambiar esto a un servicio.
-            user = get_user_by_username_and_role(data)
+            user = get_user_by_username(data)
             
             if user:
                 return user

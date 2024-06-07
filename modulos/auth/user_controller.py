@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
-from schemas.auth import User
-from models.auth import User as UserModel
-from services.users import get_user_inDB, get_user_by_username, create_new_user
+from modulos.auth.auth_schemas import User
+from modulos.auth.auth_model import User as UserModel
+from modulos.auth.users_service import get_user_by_username,get_user_inDB, create_new_user
 
 from config.jwt_depends import JWTBearer
 
@@ -44,6 +44,3 @@ def create_user(user: User, db:Session = Depends(get_db)):
         return JSONResponse(content={"message": "User created"}, status_code=201)
     else:
         return JSONResponse(content={"message": "User not created"}, status_code=400)
-
-
-
