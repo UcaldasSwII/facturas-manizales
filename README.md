@@ -15,8 +15,6 @@ Este proyecto es una aplicación web desarrollada con FastAPI para la gestión d
 
 ## Instalación
 
-Para ejecutar este proyecto, asegúrate de tener Docker instalado en tu sistema.
-
 1. **Clona este repositorio:**
  ```shell
  git clone https://github.com/UcaldasSwII/facturas-manizales.git
