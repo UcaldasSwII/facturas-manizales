@@ -22,19 +22,22 @@ Para ejecutar este proyecto, asegúrate de tener Docker instalado en tu sistema.
 
 1. Clona este repositorio:
 
-git clone <url-del-repositorio>
+  git clone <url-del-repositorio>
 
 2. Navega al directorio del proyecto:
-cd Facturas-Manizales
+   
+  cd Facturas-Manizales
 
-3.Construye y ejecuta el contenedor Docker:
-docker build -t facturas-manizales .
-docker run -d --name facturas-manizales -p 8000:8000 facturas-manizales
+3. Construye y ejecuta el contenedor Docker:
+   
+  docker build -t facturas-manizales .
+  docker run -d --name facturas-manizales -p 8000:8000 facturas-manizales
 
 Ahora puedes acceder a la aplicación en http://localhost:8000.
 
-Documentación de la API
+## Documentación de la API
+
 Una vez que la aplicación esté ejecutándose, puedes acceder a la documentación de la API generada automáticamente por FastAPI en http://localhost:8000/docs.
 
-Contribuir
+## Contribuir
 Si deseas contribuir a este proyecto, por favor haz un fork del repositorio y envía un pull request con tus cambios.
