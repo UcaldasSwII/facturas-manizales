@@ -19,7 +19,7 @@ Para ejecutar este proyecto, asegúrate de tener Docker instalado en tu sistema.
 
 1. **Clona este repositorio:**
  ```shell
- git clone <url-del-repositorio>
+ git clone https://github.com/UcaldasSwII/facturas-manizales.git
  ```
 
 3. **Navega al directorio del proyecto:**
