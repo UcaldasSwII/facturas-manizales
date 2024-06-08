@@ -1,9 +1,14 @@
 
 from sqlalchemy.orm import Session
 
+<<<<<<< HEAD:modulos/users/users_service.py
 from modulos.users.auth_schemas import UserLogin
 from modulos.users.users_model import User as UserModel
 from modulos.users.users_schemas import UserCreate
+=======
+from modulos.auth.auth_schemas import User
+from modulos.auth.auth_model import User as UserModel
+>>>>>>> master:modulos/auth/users_service.py
 
 def get_user_inDB(db:Session):
     users = db.query(UserModel).all()

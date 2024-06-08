@@ -30,10 +30,11 @@ def test_register_user():
     response = client.post(
         "/users/",
         json={
-            "username": "testuser",
-            "email": "test@gmail.com",
-            "id": 1,
-        })
+            "username": "yo",
+            "email": "yo@mail.com",
+            "name": "yo",
+            "password": "123"
+    })
     assert response.status_code == 201
     assert response.json()['message'] == 'User created'
 

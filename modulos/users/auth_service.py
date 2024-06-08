@@ -1,15 +1,22 @@
 
 from fastapi import Depends
+<<<<<<< HEAD:modulos/users/auth_service.py
 from modulos.users.auth_schemas import User, UserLogin
 from modulos.users.users_model import User as UserModel
+=======
+from modulos.auth.auth_schemas import User, UserLogin
+from modulos.auth.auth_model import User as UserModel
+>>>>>>> master:modulos/auth/auth_service.py
 from config.db import get_db
 from utils.jwt_manage import encode_jwt
 
 from sqlalchemy.orm import Session
 
 
-def get_user_by_username_and_role(data: dict, db: Session = Depends(get_db)):
-    user = db.query(UserModel).filter(UserModel.username == data["username"] and UserModel.role==data['role']).first()
+from modulos.auth.auth_model import User as UserModel
+
+def get_user_by_username(username: str, db: Session):
+    user = db.query(UserModel).filter(UserModel.username == username).first()
     return user
     
 def get_token(data: dict):

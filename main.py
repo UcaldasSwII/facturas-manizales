@@ -10,8 +10,14 @@ from fastapi.templating import Jinja2Templates
 
 from config.db import Base, engine
 
+<<<<<<< HEAD
 from modulos.users.auth_controller import auth_router
 from modulos.users.users_controller import users_router
+=======
+
+from modulos.auth.auth_controller import auth_router
+from modulos.auth.user_controller import users_router 
+>>>>>>> master
 from modulos.servicios.servicio_controller import router as servicio_rotuer
 from modulos.pagos.pago_controller import router as pago_router
 from modulos.facturas.factura_controller import router as factura_router
