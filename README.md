@@ -4,35 +4,61 @@ Este proyecto es una aplicación web desarrollada con FastAPI para la gestión d
 
 ## Características
 
-- Autenticación de usuarios.
-- Gestión de servicios.
-- Registro y manejo de pagos.
-- Generación y administración de facturas.
+- Creacion y Autenticación de usuarios.
+- Registro de servicios publicos.
+- Generación y pago de facturas.
 
 ## Tecnologías Utilizadas
 
 - FastAPI
 - SQLAlchemy
-- Passlib
-- JWT para autenticación
 
 ## Instalación
 
 Para ejecutar este proyecto, asegúrate de tener Docker instalado en tu sistema.
 
-1. Clona este repositorio:
+1. **Clona este repositorio:**
+ ```shell
+ git clone <url-del-repositorio>
+ ```
 
-  git clone <url-del-repositorio>
-
-2. Navega al directorio del proyecto:
-   
+3. **Navega al directorio del proyecto:**
+  ```shell
   cd Facturas-Manizales
+  ```
+## Configuración del entorno
 
-3. Construye y ejecuta el contenedor Docker:
-   
-  docker build -t facturas-manizales .
-  docker run -d --name facturas-manizales -p 8000:8000 facturas-manizales
+Antes de instalar las dependencias y ejecutar el proyecto, es recomendable crear un entorno virtual para aislar las dependencias del proyecto. Sigue estos pasos para configurar tu entorno virtual:
 
+3. **Crear el entorno virtual**:
+   - En Windows:
+     ```shell
+     python -m venv .env
+     ```
+   - En macOS/Linux:
+     ```shell
+     python3 -m venv .env
+     ```
+
+4. **Activar el entorno virtual**:
+   - En Windows:
+     ```shell
+     .\.env\Scripts\activate
+     ```
+   - En macOS/Linux:
+     ```shell
+     source .env/bin/activate
+     ```
+
+5. **Instala las dependencias**
+  ```shell
+  pip install -r requirements.txt
+  ```
+
+6. **Ejecuta la aplicacion con uvicorn**
+  ```shell
+  uvicorn main:app --reload
+  ```
 Ahora puedes acceder a la aplicación en http://localhost:8000.
 
 ## Documentación de la API
