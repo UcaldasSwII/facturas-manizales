@@ -22,6 +22,8 @@ users_router = APIRouter(prefix="/users",tags=["usuarios"],)
 def get_all_users(db:Session = Depends(get_db)):
 
     out_users = get_user_inDB(db)
+    #imprimir cadena de conexion usada
+    print(db.bind.url)
 
     return JSONResponse(content=jsonable_encoder(out_users), status_code=200)
 
