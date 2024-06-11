@@ -18,6 +18,7 @@ def get_token(data: dict):
     return encode_jwt(data)
 
 def validate_password(db_user: UserModel, user:UserLogin):
+    #TODO Comparar contraseña con contraseña decodificada
     if db_user.password == user.password:
             
         token = get_token(User(**db_user.__dict__).__dict__)

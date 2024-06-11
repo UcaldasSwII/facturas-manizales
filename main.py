@@ -18,7 +18,7 @@ from modulos.pagos.pago_controller import router as pago_router
 from modulos.facturas.factura_controller import router as factura_router
 
 # Creación de la aplicación FastAPI
-app = FastAPI(title="rest_auth backend", version="0.0.1")
+app = FastAPI(title="Facturas_Manizales_Backend", version="0.0.1")
 
 # Configuración de CORS
 app.add_middleware(
@@ -32,11 +32,11 @@ app.add_middleware(
 # Migración de la base de datos
 Base.metadata.create_all(bind=engine)
 
-app.include_router(auth_router)
-app.include_router(users_router)
-app.include_router(servicio_rotuer)
-app.include_router(pago_router)
-app.include_router(factura_router)
+app.include_router(auth_router, tags=["auth"])
+app.include_router(users_router, tags=["usuarios"])
+app.include_router(servicio_rotuer, tags=["servicios"])
+app.include_router(pago_router,tags=["pagos"] )
+app.include_router(factura_router, tags=["facturas"])
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
@@ -45,6 +45,11 @@ templates = Jinja2Templates(directory="templates")
 
 # Rutas de la API
 
+@app.get("/")
+async def root():
+    return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
+
+"""
 @app.get("/")
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
@@ -57,3 +62,9 @@ async def get_signup(request: Request):
 
 def hello_world():
     return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
+"""
+
+#health check
+@app.get("/health")
+async def health():
+    return JSONResponse(content={"message": "Healthy"}, status_code=200)
