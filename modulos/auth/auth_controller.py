@@ -14,6 +14,7 @@ from modulos.auth.auth_service import validate_password
 auth_router = APIRouter(prefix="/auth",tags=["auth"])
 
 # Ruta para ingreso de un usuario. #TODO: Reformar el código a SOLID
+#
 @auth_router.post("/login")
 def login(user: UserLogin, db:Session = Depends(get_db)):
     
