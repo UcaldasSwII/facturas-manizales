@@ -25,7 +25,7 @@ app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
-"""
+
 def test_register_user():
     response = client.post(
         "/users/",
@@ -38,4 +38,4 @@ def test_register_user():
     assert response.status_code == 201
     assert response.json()['message'] == 'User created'
 
-"""
+
