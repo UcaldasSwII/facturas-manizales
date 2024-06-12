@@ -4,15 +4,15 @@ from enum import Enum
 from modulos.servicios.servicio_model import ListaServicios
 
 class ServicioBase(BaseModel):
+    codigo_suscripcion: int
     nombre: str
     tipo: ListaServicios
-    usuario_id: int
 
 class ServicioCreate(ServicioBase):
     pass
 
 class Servicio(ServicioBase):
-    codigo_suscripcion: int
+    usuario_id: int
 
     class Config:
         orm_mode = True

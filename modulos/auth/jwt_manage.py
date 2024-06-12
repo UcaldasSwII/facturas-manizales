@@ -1,8 +1,10 @@
 import time
 from typing import Dict
 import jwt
-
-JWT_SECRET = "myjwtsecret"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+JWT_SECRET = os.getenv("JWT_SECRET")
 JWT_ALGORITHM = "HS256"
 
 def token_response(token: str):

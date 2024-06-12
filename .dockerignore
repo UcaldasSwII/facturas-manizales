@@ -9,3 +9,4 @@ db.sqlite3
 *.git
 *.so
 *.DS_Store
+.env
