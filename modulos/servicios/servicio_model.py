@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Enum, ForeignKey
 from sqlalchemy.orm import relationship
 from config.db import Base
 from enum import Enum as PyEnum
+
 class ListaServicios(PyEnum):
     AGUAS_DE_MANIZALES = "AGUAS DE MANIZALES"
     EFIGAS = "EFIGAS"
