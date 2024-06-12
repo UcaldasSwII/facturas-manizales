@@ -30,3 +30,12 @@ def create_user(user_data: UserCreate, db: Session):
     # Refrescar la instancia del usuario para obtener los datos guardados
     db.refresh(user)
     return user
+
+def delete_user(username: str, db:Session):
+    user = get_user_by_username(username,db)
+    if user:
+        db.delete(user)
+        db.commit()
+        return True
+    else:
+        return False

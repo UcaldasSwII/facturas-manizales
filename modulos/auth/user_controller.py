@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 
 from modulos.auth.auth_schemas import User
 from modulos.auth.auth_model import User as UserModel
-from modulos.auth.users_service import get_user_by_username,get_user_inDB, create_user as create_user_service
+from modulos.auth.users_service import get_user_by_username,get_user_inDB, create_user as create_user_service, delete_user as delete_user_service
 
 from config.jwt_depends import JWTBearer
 
@@ -31,7 +31,10 @@ def get_all_users(db:Session = Depends(get_db)):
 def get_user(username: str,db:Session = Depends(get_db) , authorized: UserModel = Depends(JWTBearer())):
     
     user = get_user_by_username(username,db)
+    #print db url
+    print(db.bind.url)
     if user:
+
         return JSONResponse(content=User(**user.__dict__).__dict__, status_code=200)
     else:
         return JSONResponse(content={"message": "User not found"}, status_code=404)
@@ -44,3 +47,14 @@ def create_user(user: User, db:Session = Depends(get_db)):
         return JSONResponse(content={"message": "User created"}, status_code=201)
     else:
         return JSONResponse(content={"message": "User not created"}, status_code=400)
+    
+
+# Ruta para eliminar un usuario
+@users_router.delete("/{username}")
+def delete_user(username: str, db:Session = Depends(get_db)):
+    user = get_user_by_username(username,db)
+    if user:
+        delete_user_service(username,db)
+        return JSONResponse(content={"message": "User deleted"}, status_code=200)
+    else:
+        return JSONResponse(content={"message": "User not found"}, status_code=404)
