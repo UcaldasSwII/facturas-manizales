@@ -39,3 +39,10 @@ def delete_user(username: str, db:Session):
         return True
     else:
         return False
+    
+def get_id_by_username(username:str, db:Session):
+    user = db.query(UserModel).filter(UserModel.username == username).first()
+    if user:
+        return user.id
+    else:
+        return None

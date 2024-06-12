@@ -12,4 +12,4 @@ class Pago(PagoBase):
     id_pago: int
 
     class Config:
-        orm_mode = True
+        from_atributes = True

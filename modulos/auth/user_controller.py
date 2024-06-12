@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 from modulos.auth.auth_schemas import User
 from modulos.auth.auth_model import User as UserModel
 from modulos.auth.users_service import get_user_by_username,get_user_inDB, create_user as create_user_service, delete_user as delete_user_service
-
+from modulos.auth.users_service import get_id_by_username
 from config.jwt_depends import JWTBearer
 
 from sqlalchemy.orm import Session
@@ -54,5 +54,17 @@ def delete_user(username: str, db:Session = Depends(get_db), authorized: UserMod
     if user:
         delete_user_service(username,db)
         return JSONResponse(content={"message": "User deleted"}, status_code=200)
+    else:
+        return JSONResponse(content={"message": "User not found"}, status_code=404)
+
+
+# Ruta get id by username
+@users_router.get("/id/{username}")
+def get_user_id(username: str,db:Session = Depends(get_db) , authorized: UserModel = Depends(JWTBearer())):
+
+    user = get_id_by_username(username,db)
+    if user:
+
+        return JSONResponse(content={"id": user}, status_code=200)
     else:
         return JSONResponse(content={"message": "User not found"}, status_code=404)

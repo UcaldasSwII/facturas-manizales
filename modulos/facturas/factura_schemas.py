@@ -15,4 +15,4 @@ class Factura(FacturaBase):
     id_factura: int
 
     class Config:
-        orm_mode = True
+        from_atributes = True
