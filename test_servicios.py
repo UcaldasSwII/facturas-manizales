@@ -33,4 +33,10 @@ app.dependency_overrides[get_db] = override_get_db
 client = TestClient(app)
 
 
-
+def test_create_servicio():
+    response = client.post(
+        "/servicios/",
+        json={"codigo_suscripcion": 112, "nombre": "Servicio 1", "tipo": "AGUAS DE MANIZALES"},
+    )
+    assert response.status_code == 201
+    assert response.json() == {"message": "Servicio creado"}
