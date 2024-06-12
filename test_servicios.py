@@ -36,7 +36,7 @@ client = TestClient(app)
 def test_create_servicio():
     response = client.post(
         "/servicios/",
-        json={"codigo_suscripcion": 112, "nombre": "Servicio 1", "tipo": "AGUAS DE MANIZALES"},
+        json={"codigo_suscripcion": 112, "nombre": "Servicio 1", "tipo": "AGUAS DE MANIZALES", "usuario_id": 1},
     )
     assert response.status_code == 201
     assert response.json() == {"message": "Servicio creado"}
