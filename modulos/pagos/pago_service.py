@@ -3,7 +3,7 @@ from .pago_model import Pago
 from .pago_schemas import PagoCreate
 from sqlalchemy.orm import Session
 
-
+#TODO: cuando se crea un pago hay que buscar la factura y cambiar el estado
 def registrar_pago(pago_data: PagoCreate, db: Session):
     nuevo_pago = Pago(**pago_data.dict())
     db.add(nuevo_pago)
@@ -23,8 +23,9 @@ def eliminar_pago_service(id_pago: int, db: Session):
         return True
     else:
         return False
-    
-def obtener_pagos_por_factura_service(factura_id: int, db: Session):
-    pagos = db.query(Pago).filter(Pago.factura_id == factura_id).all()
+
+def get_pagos_inDB(db: Session):
+    pagos = db.query(Pago).all()
     return pagos
+
 
