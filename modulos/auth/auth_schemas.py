@@ -9,6 +9,8 @@ class User(BaseModel):
     name: str
     password: str
 
+    class config:
+        from_atributes = True
 
 class UserLogin(BaseModel):
     username: str
