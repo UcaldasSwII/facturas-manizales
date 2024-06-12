@@ -40,3 +40,19 @@ def test_create_servicio():
     )
     assert response.status_code == 201
     assert response.json() == {"message": "Servicio creado"}
+
+def test_get_all_servicios():
+    response = client.get(
+        "/servicios/",
+    )
+    assert response.status_code == 200
+    assert len(response.json()) > 0
+
+def test_get_servicio():
+    response = client.get(
+        "/servicios/112",
+    )
+    assert response.status_code == 200
+    assert response.json() == {"id_servicio": 1, "nombre": "Servicio 1", "tipo": "AGUAS DE MANIZALES","codigo_suscripcion": 112, "usuario_id": 1}
+
+

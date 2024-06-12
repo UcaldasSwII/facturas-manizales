@@ -25,7 +25,7 @@ def crear_servicio(servicio: ServicioCreate, db: Session = Depends(get_db)):
 def obtener_servicio_por_codigo(codigo_suscriptor: int, db: Session = Depends(get_db)):
     servicio = obtener_servicio_por_codigo_service(codigo_suscriptor, db)
     if servicio:
-        return JSONResponse(content=ServicioCreate(**servicio.__dict__).__dict__, status_code=200)
+        return JSONResponse(content=jsonable_encoder(servicio), status_code=200)
     else:
         return JSONResponse(content={"message": "Servicio no encontrado"}, status_code=404)
     
