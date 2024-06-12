@@ -1,22 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from .pago_service import PagoService
-from .pago_repository import PagoRepository
-from .pago_schemas import PagoCreate, Pago
+from .pago_service import registrar_pago
+from .pago_schemas import PagoCreate
 from config.db import get_db
+from fastapi.responses import JSONResponse
 
-router = APIRouter()
+router = APIRouter(prefix="/pagos", tags=["pagos"])
 
-@router.post("/pagos/", response_model=Pago)
+@router.post("/")
 def crear_pago(pago: PagoCreate, db: Session = Depends(get_db)):
-    repo = PagoRepository(db)
-    service = PagoService(repo)
-    return service.registrar_pago(pago)
+    new_pago = registrar_pago(pago, db)
+    if new_pago:
+        return JSONResponse(content={"message": "Pago creado"}, status_code=201)
+    else:
+        raise JSONResponse(content={"message": "Pago no creado"}, status_code=400)
 
-@router.get("/pagos/{pago_id}", response_model=Pago)
-def obtener_pago(pago_id: int, db: Session = Depends(get_db)):
-    repo = PagoRepository(db)
-    pago = repo.obtener_pago(pago_id)
-    if not pago:
-        raise HTTPException(status_code=404, detail="Pago no encontrado")
-    return pago

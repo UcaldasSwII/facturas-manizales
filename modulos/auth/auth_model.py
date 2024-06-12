@@ -7,7 +7,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
-    name = Column(String)  # Agregar el campo 'name'
-    password = Column(String)  # Campo 'hashed_password' definido correctamente
-
-    servicios = relationship("Servicio", back_populates="usuario")
+    name = Column(String)  
+    password = Column(String)  
+ 

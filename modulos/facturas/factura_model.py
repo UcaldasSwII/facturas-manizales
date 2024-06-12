@@ -9,6 +9,5 @@ class Factura(Base):
     costo = Column(Float)
     estado = Column(String)
     fecha_pago = Column(Date)
-    servicio_id = Column(Integer, ForeignKey('servicios.codigo_suscripcion'))
-    pagos = relationship("Pago", back_populates="factura")
-    servicio = relationship("Servicio", back_populates="facturas")
+    servicio_id = Column(Integer, ForeignKey('servicios.id_servicio'))
+    servicio = relationship("Servicio")

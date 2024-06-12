@@ -8,4 +8,6 @@ class Pago(Base):
     tipo_pago = Column(String)
     monto = Column(Float)
     factura_id = Column(Integer, ForeignKey('facturas.id_factura'))
-    factura = relationship("Factura", back_populates="pagos")
+    user_id = Column(Integer, ForeignKey('users.id'))
+    usuario = relationship("User")
+    factura = relationship("Factura")
