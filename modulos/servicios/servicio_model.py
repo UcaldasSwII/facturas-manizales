@@ -10,10 +10,9 @@ class ListaServicios(PyEnum):
 
 class Servicio(Base):
     __tablename__ = 'servicios'
-    servicio_id = Column(Integer, primary_key=True, index=True)
+    id_servicio = Column(Integer, primary_key=True, index=True)
     codigo_suscripcion = Column(Integer, index=True, unique=True)
     nombre = Column(String, index=True)
     tipo = Column(Enum(ListaServicios))
     usuario_id = Column(Integer, ForeignKey('users.id'))
-    facturas = relationship("Factura", back_populates="servicio")
-    usuario = relationship("User", back_populates="servicios")
+    usuario = relationship("User")

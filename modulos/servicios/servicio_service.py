@@ -33,7 +33,7 @@ def eliminar_servicio_service(codigo_suscriptor: int, db: Session):
 def obtener_id_por_codigo_service(codigo_suscriptor: int, db: Session):
     servicio = db.query(Servicio).filter(Servicio.codigo_suscripcion == codigo_suscriptor).first()
     if servicio:
-        return servicio.servicio_id
+        return servicio.id_servicio
     else:
         return False
     
