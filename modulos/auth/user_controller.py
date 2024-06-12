@@ -31,8 +31,6 @@ def get_all_users(db:Session = Depends(get_db)):
 def get_user(username: str,db:Session = Depends(get_db) , authorized: UserModel = Depends(JWTBearer())):
     
     user = get_user_by_username(username,db)
-    #print db url
-    print(db.bind.url)
     if user:
 
         return JSONResponse(content=User(**user.__dict__).__dict__, status_code=200)
@@ -51,7 +49,7 @@ def create_user(user: User, db:Session = Depends(get_db)):
 
 # Ruta para eliminar un usuario
 @users_router.delete("/{username}")
-def delete_user(username: str, db:Session = Depends(get_db)):
+def delete_user(username: str, db:Session = Depends(get_db), authorized: UserModel = Depends(JWTBearer())):
     user = get_user_by_username(username,db)
     if user:
         delete_user_service(username,db)

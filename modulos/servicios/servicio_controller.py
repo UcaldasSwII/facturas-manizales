@@ -1,22 +1,31 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from .servicio_service import ServicioService
-from .servicio_repository import ServicioRepository
-from .servicio_schemas import ServicioCreate, Servicio
+from .servicio_service import registrar_servicio, obtener_servicio_por_codigo_service
+from .servicio_schemas import ServicioCreate
 from config.db import get_db
+from .servicio_model import ListaServicios
 
-router = APIRouter()
+router = APIRouter(prefix="/servicios", tags=["servicios"])
 
-@router.post("/servicios/", response_model=Servicio)
+@router.post("/")
 def crear_servicio(servicio: ServicioCreate, db: Session = Depends(get_db)):
-    repo = ServicioRepository(db)
-    service = ServicioService(repo)
-    return service.registrar_servicio(servicio)
+    # convertir el tipo de servicio que entra como string a un ENUM de ListaServicios
+    servicio.tipo = ListaServicios(servicio.tipo)
+    new_servicio = registrar_servicio(servicio, db)
+    if new_servicio:
+        return JSONResponse(content={"message": "Servicio creado"}, status_code=201)
+    else:
+        return JSONResponse(content={"message": "Servicio no creado"}, status_code=400)
 
-@router.get("/servicios/{servicio_id}", response_model=Servicio)
-def obtener_servicio(servicio_id: int, db: Session = Depends(get_db)):
-    repo =  ServicioRepository(db)
-    servicio = repo.obtener_servicio(servicio_id)
-    if not servicio:
-        raise HTTPException(status_code=404, detail="Servicio no encontrado")
-    return servicio
+#get servicio por codigo_suscriptor
+@router.get("/{codigo_suscriptor}")
+def obtener_servicio_por_codigo(codigo_suscriptor: int, db: Session = Depends(get_db)):
+    servicio = obtener_servicio_por_codigo_service(codigo_suscriptor)
+    if servicio:
+        return JSONResponse(content=ServicioCreate(**servicio.__dict__).__dict__, status_code=200)
+    else:
+        return JSONResponse(content={"message": "Servicio no encontrado"}, status_code=404)
+    
+
+
