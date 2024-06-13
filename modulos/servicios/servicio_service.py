@@ -2,6 +2,9 @@
 from .servicio_model import Servicio
 from .servicio_schemas import ServicioCreate
 from sqlalchemy.orm import Session
+from utils.simulador_facturas import SimuladorFacturas
+
+from modulos.facturas.factura_service import registrar_factura
 
 
 
@@ -10,6 +13,12 @@ def registrar_servicio(servicio_data: ServicioCreate, db: Session):
     db.add(nuevo_servicio)
     db.commit()
     db.refresh(nuevo_servicio)
+
+    #TODO Cuando se crea un servicio se simula una factura con utils.simulador_facturas
+
+    factura_simulada= SimuladorFacturas().generar_factura(nuevo_servicio.id_servicio)
+    registrar_factura(factura_simulada, db)
+
     return nuevo_servicio
 
 def obtener_servicio_por_codigo_service(codigo_suscriptor: int, db: Session):

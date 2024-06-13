@@ -46,25 +46,16 @@ templates = Jinja2Templates(directory="templates")
 # Rutas de la API
 
 @app.get("/")
-async def root():
-    return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
-
-"""
-@app.get("/")
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
-
 
 @app.get("/signup")
 async def get_signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
 
-
-def hello_world():
-    return JSONResponse(content={"message": "Hello, World!"}, status_code=200)
-"""
-
 #health check
 @app.get("/health")
 async def health():
     return JSONResponse(content={"message": "Healthy"}, status_code=200)
+
+

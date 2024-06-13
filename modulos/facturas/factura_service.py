@@ -6,6 +6,9 @@ from sqlalchemy.orm import Session
 
 def registrar_factura(factura_data: FacturaCreate, db: Session):
     nueva_factura = Factura(**factura_data.dict())
+    db.add(nueva_factura)
+    db.commit()
+    db.refresh(nueva_factura)
     return nueva_factura
 
 def obtener_factura_por_id_service(factura_id: int, db: Session):
@@ -26,10 +29,10 @@ def eliminar_factura_service(factura_id: int, db: Session):
     else:
         return False
     
-def editar_estado_factura_service(factura_id: int, db: Session):
+def editar_estado_factura_service(factura_id: int ,nuevo_estado ,db: Session):
     factura = db.query(Factura).filter(Factura.id_factura == factura_id).first()
     if factura:
-        factura.estado = "Pagada"
+        factura.estado = nuevo_estado
         db.commit()
         return True
     else:
