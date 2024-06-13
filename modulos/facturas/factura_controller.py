@@ -5,6 +5,7 @@ from .factura_service import get_facturas_inDB, eliminar_factura_service, obtene
 from .factura_schemas import FacturaCreate, Factura
 from config.db import get_db
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 router = APIRouter()
 
@@ -21,7 +22,7 @@ def crear_factura(factura: FacturaCreate, db: Session = Depends(get_db)):
 def obtener_facturas(db: Session = Depends(get_db)):
     out_facturas = get_facturas_inDB(db)
     if out_facturas:
-        return JSONResponse(content={"facturas": [factura.__dict__ for factura in out_facturas]}, status_code=200)
+        return JSONResponse(content=jsonable_encoder(out_facturas), status_code=200)
     else:
         return JSONResponse(content={"message": "No hay facturas registradas"}, status_code=404)
 
@@ -36,8 +37,8 @@ def obtener_factura(factura_id: int, db: Session = Depends(get_db)):
 
 #Editar estado de la factura
 @router.put("/facturas/{factura_id}")
-def editar_estado_factura(factura_id: int, db: Session = Depends(get_db)):
-    factura = editar_estado_factura_service(factura_id, db)
+def editar_estado_factura(factura_id: int, nuevo_estado: str, db: Session = Depends(get_db)):
+    factura = editar_estado_factura_service(factura_id, nuevo_estado,db)
     if factura:
         return JSONResponse(content={"message": "Factura pagada"}, status_code=200)
     else:
@@ -48,6 +49,15 @@ def editar_estado_factura(factura_id: int, db: Session = Depends(get_db)):
 def obtener_factura_por_servicio_id(servicio_id: int, db: Session = Depends(get_db)):
     factura = obtener_facturas_por_servicio_id_service(servicio_id, db)
     if factura:
-        return JSONResponse(content={"factura": factura.__dict__}, status_code=200)
+        return JSONResponse(content={"factura": jsonable_encoder(factura)}, status_code=200)
+    else:
+        return JSONResponse(content={"message": "Factura no encontrada"}, status_code=404)
+    
+#eliminar facturas
+@router.delete("/facturas/{factura_id}")
+def eliminar_factura(factura_id: int, db: Session = Depends(get_db)):
+    factura = eliminar_factura_service(factura_id, db)
+    if factura:
+        return JSONResponse(content={"message": "Factura eliminada"}, status_code=200)
     else:
         return JSONResponse(content={"message": "Factura no encontrada"}, status_code=404)
