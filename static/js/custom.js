@@ -1,24 +1,21 @@
 (function() {
-
     'use strict';
 
     var elToggle = document.querySelector('.js-password-show-toggle'),
         passwordInput = document.getElementById('password');
 
-        elToggle.addEventListener('click', (e) => {
-            e.preventDefault();
+    elToggle.addEventListener('click', (e) => {
+        e.preventDefault();
 
-            if ( elToggle.classList.contains('active') ) {
-                passwordInput.setAttribute('type', 'password');
-                elToggle.classList.remove('active');
-            } else {
-                passwordInput.setAttribute('type', 'text');
-                elToggle.classList.add('active');
-            }
-        })
-
+        if (elToggle.classList.contains('active')) {
+            passwordInput.setAttribute('type', 'password');
+            elToggle.classList.remove('active');
+        } else {
+            passwordInput.setAttribute('type', 'text');
+            elToggle.classList.add('active');
+        }
+    });
 })();
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signupForm');
@@ -40,12 +37,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function handleSignupSubmit(event) {
     event.preventDefault();
     const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        password: document.getElementById('password').value,
+        //id: 0, // Ajusta según sea necesario
         username: document.getElementById('username').value,
-        role: document.getElementById('role').value,
-        cel: document.getElementById('tel').value,
+        email: document.getElementById('email').value,
+        name: document.getElementById('name').value,
+        password: document.getElementById('password').value
     };
     // Enviar los datos como JSON
     fetch('http://127.0.0.1:8000/users/', {
@@ -62,7 +58,12 @@ function handleSignupSubmit(event) {
         }
         throw new Error('Network response was not ok.');
     })
-    .then(data => console.log(data))
+    .then(data => {
+        console.log(data);
+        alert('Usuario creado con éxito');
+        // Aquí rediriges a Angular con el token si lo necesitas
+        //window.location.href = `http://localhost:4200/home?token=${data.access_token}`;
+    })
     .catch(error => console.error('Error:', error));
 }
 
@@ -87,6 +88,10 @@ function handleLoginSubmit(event) {
         }
         throw new Error('Network response was not ok.');
     })
-    .then(data => console.log(data))
+    .then(data => {
+        console.log(data);
+        // Aquí rediriges a Angular con el token si lo necesitas
+        window.location.href = `http://localhost:4200/inicio?token=${data.token}`;
+    })
     .catch(error => console.error('Error:', error));
 }
