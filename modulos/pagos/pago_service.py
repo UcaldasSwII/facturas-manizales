@@ -19,7 +19,7 @@ def registrar_pago(pago_data: PagoCreate, db: Session):
     return nuevo_pago
 
 def obtener_pagos_usuario_service(usuario_id: int, db: Session):
-    pagos = db.query(Pago).filter(Pago.usuario_id == usuario_id).all()
+    pagos = db.query(Pago).filter(Pago.user_id == usuario_id).all()
     return pagos
 
 def eliminar_pago_service(id_pago: int, db: Session):
