@@ -91,7 +91,7 @@ function handleLoginSubmit(event) {
     .then(data => {
         console.log(data);
         // Aquí rediriges a Angular con el token si lo necesitas
-        window.location.href = `https://facturas-cfm6.onrender.com/inicio?token=${data.token}`;
+        window.location.href = `http://localhost:4200/inicio?token=${data.token}`;
     })
     .catch(error => console.error('Error:', error));
 }
